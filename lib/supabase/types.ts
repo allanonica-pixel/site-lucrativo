@@ -1,3 +1,5 @@
+import { ArticleType } from '@/constants/categories'
+
 export interface Product {
   id: string;
   name: string;
@@ -29,7 +31,7 @@ export interface Article {
   slug: string;
   category: string;
   subcategory?: string | null;
-  type: string; // 'Review' | 'Comparativo' | 'Guia de Compra' | 'Notícias'
+  type: ArticleType;
   excerpt: string | null;
   content: string | null;
   cover_image: string | null;
