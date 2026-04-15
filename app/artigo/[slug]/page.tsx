@@ -4,6 +4,7 @@ import { Article, Product } from '@/lib/supabase/types'
 import { formatBRL } from '@/lib/utils'
 import { TYPE_COLORS } from '@/constants/categories'
 import { XMarkIcon } from '@heroicons/react/outline'
+import { notFound } from 'next/navigation'
 
 const SITE_URL = 'https://mercadoai.com'
 const SITE_NAME = 'MercadoAI'
