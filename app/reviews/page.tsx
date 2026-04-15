@@ -6,14 +6,13 @@ import { CATEGORIES } from '@/constants/categories'
 import { SITE_URL } from '@/lib/constants'
 
 export default async function ReviewsPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Buscar todos os reviews (artigos do tipo 'Review')
   const { data: reviews, error } = await supabase
     .from('articles')
     .select('*')
     .eq('type', 'Review')
-    .eq('is_active', true)
     .order('published_at', { ascending: false })
     .limit(24)
 
@@ -134,7 +133,7 @@ export default async function ReviewsPage() {
             >
               Todos
             </Link>
-            {CATEGORIES.slice(0, 8).map((category) => (
+            {Object.keys(CATEGORIES).slice(0, 8).map((category) => (
               <Link
                 key={category}
                 href={`/categoria/${encodeURIComponent(category)}`}
@@ -143,14 +142,6 @@ export default async function ReviewsPage() {
                 {category}
               </Link>
             ))}
-            {CATEGORIES.length > 8 && (
-              <Link
-                href="/categorias"
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-              >
-                Ver todas
-              </Link>
-            )}
           </div>
         </div>
 

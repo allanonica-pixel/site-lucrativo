@@ -19,7 +19,7 @@ export default function HomePage() {
             Categorias Populares
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {CATEGORIES.slice(0, 10).map((category) => (
+            {Object.keys(CATEGORIES).filter(c => c !== 'Geral').map((category) => (
               <Link
                 key={category}
                 href={`/categoria/${encodeURIComponent(category)}`}
@@ -40,13 +40,13 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/artigo"
-              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              href="/articles"
+              className="px-6 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors duration-200"
             >
               Ver Artigos
             </Link>
             <Link
-              href="/comparativos"
+              href="/comparativo"
               className="px-6 py-3 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-colors duration-200"
             >
               Ver Comparativos

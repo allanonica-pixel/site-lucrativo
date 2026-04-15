@@ -1,63 +1,41 @@
-export const CATEGORIES = [
-  'Celulares',
-  'Notebooks',
-  'Tablets',
-  'Smartwatches',
-  'Fones de Ouvido',
-  'Câmeras',
-  'TVs',
-  'Computadores',
-  'Monitores',
-  'Periféricos',
-  'Consoles',
-  'Games',
-  'Eletrodomésticos',
-  'Ferramentas',
-  'Beleza',
-  'Saúde',
-  'Casa e Decoração',
-  'Moda',
-  'Esportes',
-  'Automotivo',
-]
-
-export const SUBCATEGORIES = {
-  'Celulares': [
-    'Smartphones',
-    'iPhone',
-    'Samsung Galaxy',
-    'Xiaomi',
-    'Motorola',
-  ],
-  'Notebooks': [
-    'Gaming',
-    'Ultrabooks',
-    '2-em-1',
-    'MacBook',
-    'Dell XPS',
-    'Lenovo ThinkPad',
-  ],
-  'TVs': [
-    '4K',
-    '8K',
-    'QLED',
-    'OLED',
-    'Smart TV',
-  ],
+export const CATEGORIES: Record<string, string[]> = {
+  'Eletrônicos':      ['Áudio', 'Câmeras', 'Acessórios', 'Carregadores', 'Cabos'],
+  'Smartphones':      ['Android', 'iPhone', 'Acessórios', 'Capas', 'Películas'],
+  'Notebooks':        ['Gamer', 'Ultrafino', 'Corporativo', 'Chromebook', 'Acessórios'],
+  'Games':            ['Console', 'PC Gamer', 'Periféricos', 'Jogos', 'Cadeiras Gamer'],
+  'Eletrodomésticos': ['Cozinha', 'Limpeza', 'Climatização', 'Lavanderia', 'Geladeiras'],
+  'Fones':            ['In-ear', 'Over-ear', 'On-ear', 'True Wireless', 'Headset Gamer'],
+  'Smartwatches':     ['Fitness', 'Esportivo', 'Casual', 'Infantil', 'Acessórios'],
+  'Casa & Cozinha':   ['Organização', 'Decoração', 'Utensílios', 'Iluminação', 'Jardim'],
+  'Geral':            [],
 }
 
-export const TYPE_COLORS = {
-  'Review': 'bg-blue-100 text-blue-800',
-  'Comparativo': 'bg-green-100 text-green-800',
-  'Guia de Compra': 'bg-purple-100 text-purple-800',
-  'Notícias': 'bg-orange-100 text-orange-800',
+export const CATEGORY_SLUGS: Record<string, string> = {
+  'Eletrônicos':      'eletronicos',
+  'Smartphones':      'smartphones',
+  'Notebooks':        'notebooks',
+  'Games':            'games',
+  'Eletrodomésticos': 'eletrodomesticos',
+  'Fones':            'fones',
+  'Smartwatches':     'smartwatches',
+  'Casa & Cozinha':   'casa-cozinha',
 }
 
-export const ARTICLE_TYPES = [
-  'Review',
-  'Comparativo',
-  'Guia de Compra',
-  'Notícias',
+export const ARTICLE_TYPES = ['Review', 'Comparativo', 'Guia de Compra', 'Notícias'] as const
+export type ArticleType = typeof ARTICLE_TYPES[number]
+
+export const MARKETPLACES = [
+  'Mercado Livre', 'Amazon', 'Shopee',
+  'Americanas', 'Magazine Luiza', 'Casas Bahia', 'Outro',
 ] as const
 
-export type ArticleType = typeof ARTICLE_TYPES[number]
+export const PRODUCT_BADGES = ['Destaque', 'Mais Vendido', 'Oferta Relâmpago'] as const
+
+export const TYPE_COLORS: Record<string, string> = {
+  'Review':         'bg-emerald-100 text-emerald-700',
+  'Comparativo':    'bg-amber-100 text-amber-700',
+  'Guia de Compra': 'bg-sky-100 text-sky-700',
+  'Notícias':       'bg-rose-100 text-rose-700',
+}
+
+export const DEFAULT_AUTHOR_NAME = 'Equipe Mercadoai'

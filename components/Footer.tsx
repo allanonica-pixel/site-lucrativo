@@ -1,34 +1,126 @@
 import Link from 'next/link'
-import { XMarkIcon } from '@heroicons/react/outline'
+import Image from 'next/image'
+import NewsletterForm from '@/components/NewsletterForm'
 
 export default function Footer() {
+  const popularCategories = [
+    'Smartphones', 'Notebooks', 'Games', 'Fones', 'Smartwatches', 'Eletrodomésticos',
+  ]
+
+  const resources = [
+    { label: 'Guias de Compra', href: '/guias' },
+    { label: 'Reviews', href: '/articles?categoria=Review' },
+    { label: 'Melhores Ofertas', href: '/ofertas' },
+    { label: 'Comparativos', href: '/comparativo' },
+    { label: 'Política de Privacidade', href: '/privacidade' },
+    { label: 'Termos de Uso', href: '/termos' },
+  ]
+
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-stone-900 text-stone-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {/* Coluna 1 — Logo + descrição + redes sociais */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">MercadoAI</h3>
-            <p className="text-gray-600 mb-4">
-              Encontre os melhores produtos com análises detalhadas, comparações e ofertas exclusivas.
+            <Link href="/" className="inline-block mb-4">
+              <Image
+                src="https://public.readdy.ai/ai/img_res/3f2f095b-9985-4601-9265-8f102d76ede6.png"
+                alt="Mercadoai"
+                width={140}
+                height={40}
+                className="h-9 w-auto object-contain brightness-0 invert"
+              />
+            </Link>
+            <p className="text-sm text-stone-400 leading-relaxed mb-6">
+              Comparamos produtos, analisamos preços e ajudamos você a encontrar as melhores ofertas nos principais marketplaces do Brasil.
             </p>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-gray-400 hover:text-gray-500">
-                <span className="sr-only">Facebook</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-4">
+              {/* Instagram */}
+              <a href="#" aria-label="Instagram" className="text-stone-500 hover:text-white transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+              {/* YouTube */}
+              <a href="#" aria-label="YouTube" className="text-stone-500 hover:text-white transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
+              {/* TikTok */}
+              <a href="#" aria-label="TikTok" className="text-stone-500 hover:text-white transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                </svg>
+              </a>
+              {/* Facebook */}
+              <a href="#" aria-label="Facebook" className="text-stone-500 hover:text-white transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
                 </svg>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-gray-500">
-                <span className="sr-only">Instagram</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.067-.06-1.407-.06-4.123v-.08c0-2.643.012-2.987.06-4.043.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465 1.067-.048 1.407-.06 4.123-.06h.08zm-.08 1.2c-2.43 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.377-.058 3.807v.46c0 2.43.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.377-.058-4.041-.058h-.08zm0 3.04c-1.425 0-1.78.012-2.57.056-.77.044-1.277.216-1.653.383-.403.178-.725.394-1.006.675-.278.28-.5.602-.675 1.006-.167.376-.339.883-.383 1.653-.044.79-.056 1.145-.056 2.57v.08c0 1.425.012 1.78.056 2.57.044.77.216 1.277.383 1.653.178.403.394.725.675 1.006.28.278.602.5.999.675.376.167.883.339 1.653.383.79.044 1.145.056 2.57.056h.08c1.425 0 1.78-.012 2.57-.056.77-.044 1.277-.216 1.653-.383.403-.178.725-.394 1.006-.675.278-.28.5-.602.675-.999.167-.376.339-.883.383-1.653.044-.79.056-1.145.056-2.57v-.08c0-1.425-.012-1.78-.056-2.57-.044-.77-.216-1.277-.383-1.653a3.097 3.097 0 00-.675-1.006 3.097 3.097 0 00-1.006-.675c-.376-.167-.883-.339-1.653-.383-.79-.044-1.145-.056-2.57-.056h-.08z" clipRule="evenodd" />
-                </svg>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-gray-500">
-                <span className="sr-only">YouTube</span>
-                <XMarkIcon className="h-6 w-6" />
-              </Link>
+              </a>
             </div>
+          </div>
+
+          {/* Coluna 2 — Categorias populares */}
+          <div>
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Categorias Populares
+            </h3>
+            <ul className="space-y-2">
+              {popularCategories.map((cat) => (
+                <li key={cat}>
+                  <Link
+                    href={`/categoria/${encodeURIComponent(cat)}`}
+                    className="flex items-center gap-2 text-sm text-stone-400 hover:text-orange-400 transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500 flex-shrink-0" />
+                    {cat}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Coluna 3 — Recursos */}
+          <div>
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Recursos
+            </h3>
+            <ul className="space-y-2">
+              {resources.map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-sm text-stone-400 hover:text-orange-400 transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Coluna 4 — Newsletter */}
+          <div>
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Receba Ofertas Exclusivas
+            </h3>
+            <p className="text-sm text-stone-400 mb-4">
+              Cadastre seu e-mail e receba as melhores ofertas diretamente na sua caixa de entrada.
+            </p>
+            <NewsletterForm />
+          </div>
+        </div>
+
+        {/* Rodapé */}
+        <div className="mt-12 pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+          <p>© {new Date().getFullYear()} Mercadoai. Todos os direitos reservados.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/termos" className="hover:text-stone-300 transition-colors">Termos de Uso</Link>
+            <Link href="/privacidade" className="hover:text-stone-300 transition-colors">Privacidade</Link>
+            <span>Site participante de programas de afiliados.</span>
           </div>
         </div>
       </div>

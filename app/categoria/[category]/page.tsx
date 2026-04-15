@@ -17,18 +17,17 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const category = decodeURIComponent(params.category)
 
   // Verificar se a categoria é válida
-  if (!CATEGORIES.includes(category)) {
+  if (!Object.keys(CATEGORIES).includes(category)) {
     notFound()
   }
 
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Buscar artigos da categoria com ordenação por data de publicação (mais recentes primeiro)
   const { data: articles, error } = await supabase
     .from('articles')
     .select('*')
     .eq('category', category)
-    .eq('is_active', true)
     .order('published_at', { ascending: false })
     .limit(24)
 
@@ -281,7 +280,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 export async function generateMetadata({ params }: CategoryPageProps) {
   const category = decodeURIComponent(params.category)
 
-  if (!CATEGORIES.includes(category)) {
+  if (!Object.keys(CATEGORIES).includes(category)) {
     return {
       title: 'Categoria não encontrada - MercadoAI',
       description: 'A categoria solicitada não existe no nosso site.',
@@ -339,7 +338,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 
 // Gerar rotas estáticas para categorias mais populares (SSG)
 export async function generateStaticParams() {
-  return CATEGORIES.map((category) => ({
+  return Object.keys(CATEGORIES).map((category) => ({
     category: encodeURIComponent(category)
   }))
 }

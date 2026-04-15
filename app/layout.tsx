@@ -1,37 +1,38 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import { SITE_URL } from '@/lib/constants'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'MercadoAI - Comparativos e Reviews de Produtos',
-  description: 'Encontre os melhores produtos com análises detalhadas, comparações e ofertas exclusivas.',
+  title: {
+    default: 'Mercadoai — Comparativos e Reviews de Produtos',
+    template: '%s | Mercadoai',
+  },
+  description: 'Encontre os melhores produtos com análises detalhadas, comparações e ofertas exclusivas nos maiores marketplaces do Brasil.',
+  keywords: 'comparativo de produtos, reviews, melhores ofertas, mercado livre, amazon, shopee, tecnologia',
+  authors: [{ name: 'Equipe Mercadoai' }],
+  creator: 'Mercadoai',
   openGraph: {
-    title: 'MercadoAI - Comparativos e Reviews de Produtos',
+    title: 'Mercadoai — Comparativos e Reviews de Produtos',
     description: 'Encontre os melhores produtos com análises detalhadas, comparações e ofertas exclusivas.',
     url: SITE_URL,
-    siteName: 'MercadoAI',
-    images: [
-      {
-        url: `${SITE_URL}/og-image.png`,
-        width: 1200,
-        height: 630,
-      },
-    ],
+    siteName: 'Mercadoai',
+    images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630 }],
     locale: 'pt_BR',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MercadoAI - Comparativos e Reviews de Produtos',
+    title: 'Mercadoai — Comparativos e Reviews de Produtos',
     description: 'Encontre os melhores produtos com análises detalhadas, comparações e ofertas exclusivas.',
     images: [`${SITE_URL}/og-image.png`],
+    site: '@mercadoai',
   },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  alternates: { canonical: SITE_URL },
   robots: {
     index: true,
     follow: true,
@@ -40,20 +41,20 @@ export const metadata: Metadata = {
       follow: true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
-      'max-snippet': -1
-    }
-  }
+      'max-snippet': -1,
+    },
+  },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        {children}
+        <Navbar />
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   )

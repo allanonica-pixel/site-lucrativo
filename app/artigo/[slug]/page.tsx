@@ -1,20 +1,33 @@
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { createStaticClient } from '@/lib/supabase/static'
 import { Article, Product } from '@/lib/supabase/types'
 import { formatBRL } from '@/lib/utils'
 import { TYPE_COLORS } from '@/constants/categories'
-import { XMarkIcon } from '@heroicons/react/outline'
 import { notFound } from 'next/navigation'
+
+export const revalidate = 3600 // ISR: revalida a cada 1 hora
 
 const SITE_URL = 'https://mercadoai.com'
 const SITE_NAME = 'MercadoAI'
+
+export async function generateStaticParams() {
+  const supabase = createStaticClient()
+  const { data: articles } = await supabase
+    .from('articles')
+    .select('slug')
+    .order('published_at', { ascending: false })
+    .limit(100)
+
+  return (articles ?? []).map((a) => ({ slug: a.slug }))
+}
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: article } = await supabase
     .from('articles')
     .select('*')
@@ -103,7 +116,7 @@ export default async function ArticlePage({
 }: {
   params: { slug: string }
 }) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Buscar o artigo
   const { data: article, error: articleError } = await supabase
@@ -137,7 +150,6 @@ export default async function ArticlePage({
       .from('articles')
       .select('*')
       .in('id', article.related_article_ids)
-      .eq('is_active', true)
       .order('published_at', { ascending: false })
 
     if (!articlesError && articles) {
@@ -193,11 +205,6 @@ export default async function ArticlePage({
       '@id': `${SITE_URL}/artigo/${params.slug}`,
     },
     ...(article.type === 'Review' ? {
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: article.rating ?? 5,
-        bestRating: 5,
-      },
       reviewBody: article.content ?? '',
     } : {}),
   }
@@ -439,28 +446,6 @@ export default async function ArticlePage({
             </section>
           )}
 
-          {/* FAQ Section */}
-          {article.faq && article.faq.length > 0 && (
-            <section className="mt-16">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Perguntas frequentes</h2>
-              <div className="space-y-4">
-                {article.faq.map((faq, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
-                    <button className="w-full flex justify-between items-center p-4 text-left font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 transition-colors">
-                      <span>{faq.question}</span>
-                      <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    <div className="p-4 border-t border-gray-200 bg-white">
-                      <p className="text-gray-600">{faq.answer}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
           {/* Article Footer */}
           <footer className="mt-16 pt-8 border-t border-gray-200">
             <div className="flex flex-wrap items-center justify-between gap-4">
@@ -474,9 +459,12 @@ export default async function ArticlePage({
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(`${SITE_URL}/artigo/${params.slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-blue-600 transition-colors"
+                  className="text-gray-500 hover:text-blue-400 transition-colors"
+                  aria-label="Compartilhar no X (Twitter)"
                 >
-                  <XMarkIcon className="w-6 h-6" />
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
                 </a>
               </div>
             </div>
